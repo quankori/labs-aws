@@ -1,13 +1,13 @@
 // Init VPC
 resource "aws_vpc" "vpc" {
-  cidr_block           = var.cidr
+  cidr_block           = var.cidr_vpc
   enable_dns_hostnames = true
 }
 
 // Init subnet public
 resource "aws_subnet" "public" {
   vpc_id                  = aws_vpc.vpc.id
-  cidr_block              = var.cidr
+  cidr_block              = var.cidr_subnet
   availability_zone       = var.availability_zones
   map_public_ip_on_launch = true
 }
