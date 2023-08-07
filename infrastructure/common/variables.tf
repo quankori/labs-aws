@@ -13,7 +13,6 @@ variable "cidr_vpc" {
   default = "10.32.0.0/16"
 }
 
-
 variable "aws_region" {
   type    = string
   default = "ap-southeast-1"
@@ -29,7 +28,12 @@ variable "project_env" {
   default = "dev"
 }
 
+variable "project_domain" {
+  type    = string
+  default = "quankori.xyz"
+}
+
 variable "ec2_linux_ami" {
-  type = string
+  type    = string
   default = "ami-0ded8326293d3201b"
 }
