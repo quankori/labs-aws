@@ -13,10 +13,6 @@ variable "cidr_vpc" {
   default = "10.32.0.0/16"
 }
 
-variable "cidr_route" {
-  type    = string
-  default = "0.0.0.0/0"
-}
 
 variable "aws_region" {
   type    = string
@@ -31,4 +27,9 @@ variable "project_name" {
 variable "project_env" {
   type    = string
   default = "dev"
+}
+
+variable "ec2_linux_ami" {
+  type = string
+  default = "ami-0ded8326293d3201b"
 }
