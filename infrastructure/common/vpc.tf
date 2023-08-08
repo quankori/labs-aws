@@ -43,14 +43,15 @@ resource "aws_internet_gateway" "prj_igw_dev" {
 }
 
 // Init NAT Gatway
-resource "aws_nat_gateway" "prj_nat_dev" {
-  allocation_id = aws_eip.prj_eip_dev.id
-  subnet_id     = aws_subnet.prj_subnet_public_dev.id
-  depends_on    = [aws_eip.prj_eip_dev]
-  tags = {
-    Name = "${var.project_name}-nat-${var.project_env}"
-  }
-}
+// Comment code because high pricing
+# resource "aws_nat_gateway" "prj_nat_dev" {
+#   allocation_id = aws_eip.prj_eip_dev.id
+#   subnet_id     = aws_subnet.prj_subnet_public_dev.id
+#   depends_on    = [aws_eip.prj_eip_dev]
+#   tags = {
+#     Name = "${var.project_name}-nat-${var.project_env}"
+#   }
+# }
 
 // Route table
 resource "aws_route_table" "prj_rtb_pub_dev" {
@@ -69,10 +70,10 @@ resource "aws_route_table" "prj_rtb_pub_dev" {
 resource "aws_route_table" "prj_rtb_pri_dev" {
   vpc_id = aws_vpc.prj_vpc_dev.id
 
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_nat_gateway.prj_nat_dev.id
-  }
+  # route {
+  #   cidr_block = "0.0.0.0/0"
+  #   gateway_id = aws_nat_gateway.prj_nat_dev.id
+  # }
 
   tags = {
     Name = "${var.project_name}-rtbpri-${var.project_env}"
@@ -80,7 +81,7 @@ resource "aws_route_table" "prj_rtb_pri_dev" {
 }
 
 resource "aws_route_table_association" "prj_rtb_asc_pub_dev" {
-  subnet_id      = aws_subnet.prj_subnet_private_dev.id
+  subnet_id      = aws_subnet.prj_subnet_public_dev.id
   route_table_id = aws_route_table.prj_rtb_pub_dev.id
 }
 

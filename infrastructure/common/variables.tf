@@ -10,7 +10,7 @@ variable "cidr_private_subnet" {
 
 variable "cidr_vpc" {
   type    = string
-  default = "10.32.0.0/16"
+  default = "10.11.0.0/16"
 }
 
 variable "aws_region" {
@@ -35,5 +35,5 @@ variable "project_domain" {
 
 variable "ec2_linux_ami" {
   type    = string
-  default = "ami-0ded8326293d3201b"
+  default = "ami-0a481e6d13af82399"
 }
