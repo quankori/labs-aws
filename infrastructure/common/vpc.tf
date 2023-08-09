@@ -9,21 +9,38 @@ resource "aws_vpc" "prj_vpc_dev" {
 }
 
 // Init subnet 
-resource "aws_subnet" "prj_subnet_public_dev" {
+resource "aws_subnet" "prj_subnet_public1_dev" {
   vpc_id            = aws_vpc.prj_vpc_dev.id
   cidr_block        = var.cidr_public_subnet
   availability_zone = "${var.aws_region}a"
   tags = {
-    Name = "${var.project_name}-pubsubnet-${var.project_env}"
+    Name = "${var.project_name}-pubsubnet1-${var.project_env}"
   }
 }
 
-resource "aws_subnet" "prj_subnet_private_dev" {
+resource "aws_subnet" "prj_subnet_public2_dev" {
+  vpc_id            = aws_vpc.prj_vpc_dev.id
+  cidr_block        = var.cidr_public_subnet
+  availability_zone = "${var.aws_region}b"
+  tags = {
+    Name = "${var.project_name}-pubsubnet2-${var.project_env}"
+  }
+}
+
+resource "aws_subnet" "prj_subnet_private1_dev" {
   vpc_id            = aws_vpc.prj_vpc_dev.id
   cidr_block        = var.cidr_private_subnet
   availability_zone = "${var.aws_region}a"
   tags = {
-    Name = "${var.project_name}-prisubnet-${var.project_env}"
+    Name = "${var.project_name}-prisubnet1-${var.project_env}"
+  }
+}
+resource "aws_subnet" "prj_subnet_private2_dev" {
+  vpc_id            = aws_vpc.prj_vpc_dev.id
+  cidr_block        = var.cidr_private_subnet
+  availability_zone = "${var.aws_region}b"
+  tags = {
+    Name = "${var.project_name}-prisubnet2-${var.project_env}"
   }
 }
 
@@ -80,13 +97,23 @@ resource "aws_route_table" "prj_rtb_pri_dev" {
   }
 }
 
-resource "aws_route_table_association" "prj_rtb_asc_pub_dev" {
-  subnet_id      = aws_subnet.prj_subnet_public_dev.id
+resource "aws_route_table_association" "prj_rtb_asc_pub1_dev" {
+  subnet_id      = aws_subnet.prj_subnet_public1_dev.id
   route_table_id = aws_route_table.prj_rtb_pub_dev.id
 }
 
-resource "aws_route_table_association" "prj_rtb_asc_pri_dev" {
-  subnet_id      = aws_subnet.prj_subnet_private_dev.id
+resource "aws_route_table_association" "prj_rtb_asc_pub2_dev" {
+  subnet_id      = aws_subnet.prj_subnet_public2_dev.id
+  route_table_id = aws_route_table.prj_rtb_pub_dev.id
+}
+
+resource "aws_route_table_association" "prj_rtb_asc_pri1_dev" {
+  subnet_id      = aws_subnet.prj_subnet_private1_dev.id
+  route_table_id = aws_route_table.prj_rtb_pri_dev.id
+}
+
+resource "aws_route_table_association" "prj_rtb_asc_pri2_dev" {
+  subnet_id      = aws_subnet.prj_subnet_private2_dev.id
   route_table_id = aws_route_table.prj_rtb_pri_dev.id
 }
 
@@ -95,10 +122,19 @@ output "prj_vpc_dev_id" {
   value = aws_vpc.prj_vpc_dev.id
 }
 
-output "prj_subpub_dev_id" {
-  value = aws_subnet.prj_subnet_private_dev.id
+
+output "prj_subpub1_dev_id" {
+  value = aws_subnet.prj_subnet_public1_dev.id
 }
 
-output "prj_subpri_dev_id" {
-  value = aws_subnet.prj_subnet_private_dev.id
+output "prj_subpub2_dev_id" {
+  value = aws_subnet.prj_subnet_public2_dev.id
+}
+
+output "prj_subpri1_dev_id" {
+  value = aws_subnet.prj_subnet_private1_dev.id
+}
+
+output "prj_subpri2_dev_id" {
+  value = aws_subnet.prj_subnet_private2_dev.id
 }

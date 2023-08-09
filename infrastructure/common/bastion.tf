@@ -26,7 +26,7 @@ resource "aws_instance" "prj_ec2_bastion_dev" {
   ami                         = var.ec2_linux_ami
   instance_type               = "t2.micro"
   vpc_security_group_ids      = [aws_security_group.prj_bastion_host_dev.id]
-  subnet_id                   = aws_subnet.prj_subnet_public_dev.id
+  subnet_id                   = aws_subnet.prj_subnet_public1_dev.id
   key_name                    = "${var.project_name}-bastion-key-${var.project_env}"
   associate_public_ip_address = true
   depends_on = [ aws_eip.prj_ec2_bastion_eip_dev ]

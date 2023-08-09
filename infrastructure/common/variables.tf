@@ -33,6 +33,11 @@ variable "project_domain" {
   default = "quankori.xyz"
 }
 
+variable "project_account_id" {
+  type    = string
+  default = "498907343309"
+}
+
 variable "ec2_linux_ami" {
   type    = string
   default = "ami-0a481e6d13af82399"
