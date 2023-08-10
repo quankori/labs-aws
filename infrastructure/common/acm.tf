@@ -19,6 +19,13 @@ resource "aws_acm_certificate" "prj_acm_southeast_dev" {
   }
 }
 
+resource "aws_acm_certificate_validation" "prj_cert_dev" {
+  certificate_arn         = aws_acm_certificate.prj_acm_southeast_dev.arn
+  validation_record_fqdns = [aws_route53_record.prj_cert_rc.fqdn]
+  depends_on              = [aws_acm_certificate.prj_acm_southeast_dev]
+}
+
+
 output "prj_acm_dev_domain" {
   value = aws_acm_certificate.prj_acm_dev.domain_name
 }

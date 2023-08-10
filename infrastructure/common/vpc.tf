@@ -45,11 +45,11 @@ resource "aws_subnet" "prj_subnet_private2_dev" {
 }
 
 // EIP for NAT Gatway
-resource "aws_eip" "prj_eip_dev" {
-  tags = {
-    Name = "${var.project_name}-eip-${var.project_env}"
-  }
-}
+# resource "aws_eip" "prj_eip_dev" {
+#   tags = {
+#     Name = "${var.project_name}-eip-${var.project_env}"
+#   }
+# }
 
 // Init gateway
 resource "aws_internet_gateway" "prj_igw_dev" {
