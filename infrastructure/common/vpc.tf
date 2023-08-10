@@ -20,7 +20,7 @@ resource "aws_subnet" "prj_subnet_public1_dev" {
 
 resource "aws_subnet" "prj_subnet_public2_dev" {
   vpc_id            = aws_vpc.prj_vpc_dev.id
-  cidr_block        = var.cidr_public_subnet
+  cidr_block        = var.cidr_public_subnet2
   availability_zone = "${var.aws_region}b"
   tags = {
     Name = "${var.project_name}-pubsubnet2-${var.project_env}"
@@ -37,7 +37,7 @@ resource "aws_subnet" "prj_subnet_private1_dev" {
 }
 resource "aws_subnet" "prj_subnet_private2_dev" {
   vpc_id            = aws_vpc.prj_vpc_dev.id
-  cidr_block        = var.cidr_private_subnet
+  cidr_block        = var.cidr_private_subnet2
   availability_zone = "${var.aws_region}b"
   tags = {
     Name = "${var.project_name}-prisubnet2-${var.project_env}"

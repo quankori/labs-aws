@@ -43,11 +43,11 @@ resource "aws_s3_bucket_lifecycle_configuration" "uniservice_s3_logs_dev" {
       storage_class = "INTELLIGENT_TIERING"
     }
     transition {
-      days          = 0
+      days          = 90
       storage_class = "GLACIER"
     }
     transition {
-      days          = 0
+      days          = 180
       storage_class = "DEEP_ARCHIVE"
     }
     expiration {
