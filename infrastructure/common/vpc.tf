@@ -122,7 +122,6 @@ output "prj_vpc_dev_id" {
   value = aws_vpc.prj_vpc_dev.id
 }
 
-
 output "prj_subpub1_dev_id" {
   value = aws_subnet.prj_subnet_public1_dev.id
 }
