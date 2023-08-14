@@ -10,9 +10,9 @@ resource "aws_ecs_task_definition" "prj_api_ecs_task_def_dev" {
 [
   {
     "name": "${var.project_name}-api-ecs-${var.project_env}",
-    "image": "${var.ecr_image}:latest",
-    "memory": 2048,
-    "cpu": 1024,
+    "image": "${var.ecr_image}",
+    "memory": 512,
+    "cpu": 256,
     "secrets": [],
     "portMappings": [
       {
@@ -34,8 +34,8 @@ resource "aws_ecs_task_definition" "prj_api_ecs_task_def_dev" {
 task_definitions
   task_role_arn            = aws_iam_role.prj_api_ecs_role_task_dev.arn
   execution_role_arn       = aws_iam_role.prj_api_ecs_role_exec_dev.arn
-  cpu                      = 1024
-  memory                   = 2048
+  cpu                      = 256
+  memory                   = 512
   requires_compatibilities = ["FARGATE"]
   lifecycle {
     create_before_destroy = true
@@ -50,7 +50,7 @@ resource "aws_ecs_service" "prj_api_ecs_svc_dev" {
   task_definition        = aws_ecs_task_definition.prj_api_ecs_task_def_dev.arn
   desired_count          = 1
   deployment_controller {
-    type = "CODE_DEPLOY"
+    type = "ECS"
   }
   scheduling_strategy = "REPLICA"
   launch_type         = "FARGATE"
@@ -58,16 +58,15 @@ resource "aws_ecs_service" "prj_api_ecs_svc_dev" {
     subnets         = [data.aws_subnet.prj_pubsub01_dev.id]
     security_groups = [aws_security_group.prj_api_ecs_sg_dev.id]
   }
-  load_balancer {
-    target_group_arn = aws_lb_target_group.prj_api_ecs_trg_dev.arn
-    container_name   = "${var.project_name}-api-ecs-${var.project_env}"
-    container_port   = 3000
-  }
+  # load_balancer {
+  #   target_group_arn = aws_lb_target_group.prj_api_ecs_trg_dev.arn
+  #   container_name   = "${var.project_name}-api-ecs-${var.project_env}"
+  #   container_port   = 3000
+  # }
   lifecycle {
     create_before_destroy = true
-    ignore_changes        = [load_balancer, task_definition]
+    ignore_changes        = [task_definition]
   }
-  depends_on = [aws_lb.prj_api_ecs_lb_dev]
   tags = {
     Name = "${var.project_name}-ecs_svc-${var.project_env}"
   }

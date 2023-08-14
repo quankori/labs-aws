@@ -25,5 +25,5 @@ variable "cidr_vpc" {
 
 variable "ecr_image" {
   type    = string
-  default = "498907343309.dkr.ecr.ap-southeast-1.amazonaws.com/prj-ecr-dev"
+  default = "498907343309.dkr.ecr.ap-southeast-1.amazonaws.com/prj-ecr-dev:latest"
 }

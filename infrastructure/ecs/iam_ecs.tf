@@ -15,24 +15,6 @@ resource "aws_iam_role" "prj_api_ecs_role_exec_dev" {
   })
 }
 
-resource "aws_iam_role" "prj_api_ecs_role_task_dev" {
-  name                  = "${var.project_name}-api-ecs-role-task-${var.project_env}"
-  force_detach_policies = true
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect = "Allow"
-        Action = "sts:AssumeRole"
-        Principal = {
-          Service = "ecs-tasks.amazonaws.com"
-        }
-      }
-    ]
-  })
-}
-
-
 resource "aws_iam_role_policy" "prj_api_ecs_plc_exec_dev" {
   name = "${var.project_name}-api-ecs-plc-exec-${var.project_env}"
   role = aws_iam_role.prj_api_ecs_role_exec_dev.id
@@ -54,6 +36,25 @@ resource "aws_iam_role_policy" "prj_api_ecs_plc_exec_dev" {
     ]
   })
 }
+
+
+resource "aws_iam_role" "prj_api_ecs_role_task_dev" {
+  name                  = "${var.project_name}-api-ecs-role-task-${var.project_env}"
+  force_detach_policies = true
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = "sts:AssumeRole"
+        Principal = {
+          Service = "ecs-tasks.amazonaws.com"
+        }
+      }
+    ]
+  })
+}
+
 
 
 resource "aws_iam_role_policy" "prj_api_ecs_plc_task_dev" {
