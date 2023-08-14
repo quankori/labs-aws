@@ -55,8 +55,9 @@ resource "aws_ecs_service" "prj_api_ecs_svc_dev" {
   scheduling_strategy = "REPLICA"
   launch_type         = "FARGATE"
   network_configuration {
-    subnets         = [data.aws_subnet.prj_pubsub01_dev.id]
-    security_groups = [aws_security_group.prj_api_ecs_sg_dev.id]
+    subnets          = [data.aws_subnet.prj_pubsub01_dev.id]
+    security_groups  = [aws_security_group.prj_api_ecs_sg_dev.id]
+    assign_public_ip = true
   }
   # load_balancer {
   #   target_group_arn = aws_lb_target_group.prj_api_ecs_trg_dev.arn

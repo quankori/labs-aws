@@ -10,9 +10,10 @@ resource "aws_vpc" "prj_vpc_dev" {
 
 // Init subnet 
 resource "aws_subnet" "prj_subnet_public1_dev" {
-  vpc_id            = aws_vpc.prj_vpc_dev.id
-  cidr_block        = var.cidr_public_subnet
-  availability_zone = "${var.aws_region}a"
+  vpc_id                  = aws_vpc.prj_vpc_dev.id
+  cidr_block              = var.cidr_public_subnet
+  availability_zone       = "${var.aws_region}a"
+  map_public_ip_on_launch = true
   tags = {
     Name = "${var.project_name}-pubsubnet1-${var.project_env}"
   }
