@@ -59,14 +59,14 @@ resource "aws_ecs_service" "prj_api_ecs_svc_dev" {
     security_groups  = [aws_security_group.prj_api_ecs_sg_dev.id]
     assign_public_ip = true
   }
-  load_balancer {
-    target_group_arn = aws_lb_target_group.prj_api_ecs_trg_dev.arn
-    container_name   = "${var.project_name}-api-ecs-${var.project_env}"
-    container_port   = 3000
-  }
+  # load_balancer {
+  #   target_group_arn = aws_lb_target_group.prj_api_ecs_trg_dev.arn
+  #   container_name   = "${var.project_name}-api-ecs-${var.project_env}"
+  #   container_port   = 3000
+  # }
   lifecycle {
     create_before_destroy = true
-    ignore_changes        = [task_definition, load_balancer]
+    ignore_changes        = [task_definition]
   }
   tags = {
     Name = "${var.project_name}-ecs_svc-${var.project_env}"
