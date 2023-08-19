@@ -24,21 +24,21 @@ resource "aws_codepipeline" "prj_codepipeline_dev" {
     }
   }
 
-  # stage {
-  #   name = "BuildNode"
-  #   action {
-  #     name             = "BuildAPI"
-  #     category         = "Build"
-  #     owner            = "AWS"
-  #     provider         = "CodeBuild"
-  #     version          = "1"
-  #     input_artifacts  = ["Source"]
-  #     output_artifacts = ["BuildAPI"]
-  #     configuration = {
-  #       ProjectName = aws_codebuild_project.prj_codebuild_api_dev.name
-  #     }
-  #   }
-  # }
+  stage {
+    name = "BuildNode"
+    action {
+      name             = "BuildAPI"
+      category         = "Build"
+      owner            = "AWS"
+      provider         = "CodeBuild"
+      version          = "1"
+      input_artifacts  = ["Source"]
+      output_artifacts = ["BuildAPI"]
+      configuration = {
+        ProjectName = aws_codebuild_project.prj_codebuild_api_dev.name
+      }
+    }
+  }
 
   stage {
     name = "BuildCMS"
@@ -56,23 +56,23 @@ resource "aws_codepipeline" "prj_codepipeline_dev" {
     }
   }
 
-  # stage {
-  #   name = "DeployECS"
-  #   action {
-  #     name            = "DeployAction"
-  #     category        = "Deploy"
-  #     owner           = "AWS"
-  #     provider        = "CodeDeployToECS"
-  #     version         = "1"
-  #     input_artifacts = ["BuildAPI"]
-  #     configuration = {
-  #       ApplicationName                = aws_codedeploy_app.prj_codepdeploy_api_ecs_dev.name
-  #       DeploymentGroupName            = aws_codedeploy_deployment_group.prj_codepdeploy_api_ecs_grp_dev.deployment_group_name
-  #       TaskDefinitionTemplateArtifact = "BuildAPI"
-  #       TaskDefinitionTemplatePath     = var.task_def
-  #       AppSpecTemplateArtifact        = "BuildAPI"
-  #       AppSpecTemplatePath            = var.appspec
-  #     }
-  #   }
-  # }
+  stage {
+    name = "DeployECS"
+    action {
+      name            = "DeployAction"
+      category        = "Deploy"
+      owner           = "AWS"
+      provider        = "CodeDeployToECS"
+      version         = "1"
+      input_artifacts = ["BuildAPI"]
+      configuration = {
+        ApplicationName                = aws_codedeploy_app.prj_codepdeploy_api_ecs_dev.name
+        DeploymentGroupName            = aws_codedeploy_deployment_group.prj_codepdeploy_api_ecs_grp_dev.deployment_group_name
+        TaskDefinitionTemplateArtifact = "BuildAPI"
+        TaskDefinitionTemplatePath     = var.task_def
+        AppSpecTemplateArtifact        = "BuildAPI"
+        AppSpecTemplatePath            = var.appspec
+      }
+    }
+  }
 }
