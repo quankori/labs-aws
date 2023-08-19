@@ -30,10 +30,6 @@ resource "aws_codebuild_project" "prj_codebuild_landing_dev" {
       name  = "AWS_REGION"
       value = var.aws_region
     }
-    environment_variable {
-      name  = "ECR_URI"
-      value = var.ecr_uri
-    }
   }
 
   artifacts {
