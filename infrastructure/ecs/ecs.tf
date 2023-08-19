@@ -13,7 +13,12 @@ resource "aws_ecs_task_definition" "prj_api_ecs_task_def_dev" {
     "image": "${var.ecr_image}",
     "memory": 512,
     "cpu": 256,
-    "secrets": [],
+    "secrets": [
+       {
+        "name": "${aws_ssm_parameter.node_env.name}",
+        "valueFrom": "arn:aws:ssm:${var.aws_region}:${var.project_account_id}:parameter/${aws_ssm_parameter.node_env.name}"
+      }
+    ],
     "portMappings": [
       {
         "containerPort": 3000,
@@ -51,6 +56,7 @@ resource "aws_ecs_service" "prj_api_ecs_svc_dev" {
   desired_count          = 1
   deployment_controller {
     type = "ECS"
+    # type = "CODE_DEPLOY" // Just avaliable if ALB or NLB
   }
   scheduling_strategy = "REPLICA"
   launch_type         = "FARGATE"

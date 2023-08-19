@@ -32,7 +32,7 @@ resource "aws_s3_bucket_acl" "prj_s3_logs_acl_dev" {
   acl        = "private"
 }
 
-resource "aws_s3_bucket_lifecycle_configuration" "uniservice_s3_logs_dev" {
+resource "aws_s3_bucket_lifecycle_configuration" "prj_s3_logs_dev" {
   bucket = aws_s3_bucket.prj_s3_logs_dev.id
   rule {
     id = "RotateLogRule"

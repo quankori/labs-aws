@@ -38,10 +38,10 @@ resource "aws_route53_record" "prj_cert_rc" {
   ttl             = 60
 }
 
-resource "aws_route53_record" "prj_api_rc" {
-  zone_id = aws_route53_zone.prj_r53_hz_dev.zone_id
-  name    = "api.${var.project_domain}"
-  type    = "CNAME"
-  ttl     = 300
-  records = ["${aws_cloudfront_distribution.prj_cloudfront_api_dev.domain_name}"]
-}
+# resource "aws_route53_record" "prj_api_rc" {
+#   zone_id = aws_route53_zone.prj_r53_hz_dev.zone_id
+#   name    = "api.${var.project_domain}"
+#   type    = "CNAME"
+#   ttl     = 300
+#   records = ["${aws_cloudfront_distribution.prj_cloudfront_api_dev.domain_name}"]
+# }
