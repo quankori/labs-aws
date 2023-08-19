@@ -38,6 +38,10 @@ resource "aws_codepipeline" "prj_codepipeline_dev" {
         ProjectName = aws_codebuild_project.prj_codebuild_api_dev.name
       }
     }
+  }
+
+  stage {
+    name = "BuildCMS"
     action {
       name             = "Build_Deploy_Landing"
       category         = "Build"
