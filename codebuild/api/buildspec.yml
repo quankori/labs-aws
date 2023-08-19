@@ -4,6 +4,7 @@ env:
   variables:
     ENV: "dev"
     S3_ARC: "prj-artifact-pipeline-dev"
+    SRC_NODE: "api"
 
 phases:
   pre_build:
