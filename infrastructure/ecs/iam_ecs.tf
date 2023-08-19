@@ -33,6 +33,17 @@ resource "aws_iam_role_policy" "prj_api_ecs_plc_exec_dev" {
         ]
         Resource = "*"
       },
+      {
+        Effect = "Allow"
+        Action = [
+          "ssm:GetParameters",
+          "kms:Decrypt"
+        ]
+        Resource = [
+          "arn:aws:ssm:${var.aws_region}:${var.project_account_id}:parameter/*",
+          "arn:aws:kms:${var.aws_region}:${var.project_account_id}:key/*"
+        ]
+      }
     ]
   })
 }
