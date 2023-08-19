@@ -3,6 +3,7 @@ version: 0.2
 env:
   variables:
     ENV: "dev"
+    S3_ARC: "prj-artifact-pipeline-dev"
 
 phases:
   pre_build:
