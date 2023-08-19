@@ -1,5 +1,5 @@
 resource "aws_codepipeline" "prj_codepipeline_dev" {
-  name      = "${var.project_name}-pipeline-${var.project_env}"
+  name     = "${var.project_name}-pipeline-${var.project_env}"
   role_arn = aws_iam_role.prj_codepipeline_role_dev.arn
   artifact_store {
     location = aws_s3_bucket.prj_s3_artifact_pipeline_dev.bucket
@@ -36,6 +36,18 @@ resource "aws_codepipeline" "prj_codepipeline_dev" {
       output_artifacts = ["BuildAPI"]
       configuration = {
         ProjectName = aws_codebuild_project.prj_codebuild_api_dev.name
+      }
+    }
+    action {
+      name             = "Build_Deploy_Landing"
+      category         = "Build"
+      owner            = "AWS"
+      provider         = "CodeBuild"
+      version          = "1"
+      input_artifacts  = ["Source"]
+      output_artifacts = ["BuildLand"]
+      configuration = {
+        ProjectName = aws_codebuild_project.prj_codebuild_landing_dev.name
       }
     }
   }

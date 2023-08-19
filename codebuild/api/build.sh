@@ -1,5 +1,5 @@
 #!/bin/bash
-IMAGE_TAG="${ECR_URI}:TAG_VALUE"
+IMAGE_TAG="${ECR_URI}:latest"
 echo "✅ Building ECS NodeJS API"
 docker build -t ${IMAGE_TAG} -f ${CODEBUILD_SRC_DIR}/codebuild/api/Dockerfile ${CODEBUILD_SRC_DIR}/${SRC_NODE}
 docker push ${IMAGE_TAG}
