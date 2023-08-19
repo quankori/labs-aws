@@ -1,6 +1,5 @@
-#!/bin/bash
-echo "✅ Building S3 Source FE..."
-docker build -t fe -f ${CODEBUILD_SRC_DIR}/codebuild/${ENV}/Dockerfile.sources3 ${CODEBUILD_SRC_DIR}/${SRC_FE}
-docker run -itd --name fe fe
-docker cp fe:/app/. ${CODEBUILD_SRC_DIR}/${SRC_FE}
-docker stop fe
+echo "✅ Building S3 Source LAND..."
+docker build -t landing -f ${CODEBUILD_SRC_DIR}/codebuild/web/Dockerfile ${CODEBUILD_SRC_DIR}/${SRC_LAND}
+docker run -itd --name landing landing
+docker cp landing:/app/. ${CODEBUILD_SRC_DIR}/${SRC_LAND}
+docker stop landing
