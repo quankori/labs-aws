@@ -1,7 +1,7 @@
 resource "aws_codebuild_project" "prj_codebuild_landing_dev" {
   name           = "${var.project_name}-codebuild-landing-project-${var.project_env}"
   service_role   = aws_iam_role.prj_codebuild_role_cd_dev.arn
-  build_timeout  = 10
+  build_timeout  = 15
   tags           = var.tags
   source_version = "develop"
 
@@ -25,6 +25,14 @@ resource "aws_codebuild_project" "prj_codebuild_landing_dev" {
     environment_variable {
       name  = "CF_ID"
       value = data.terraform_remote_state.terraform_common_s3_state.outputs.prj_cloudfront_fe_dev_id
+    }
+    environment_variable {
+      name  = "AWS_REGION"
+      value = var.aws_region
+    }
+    environment_variable {
+      name  = "ECR_URI"
+      value = var.ecr_uri
     }
   }
 
