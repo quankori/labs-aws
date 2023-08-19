@@ -8,8 +8,4 @@ RUN npm install
 
 COPY . .
 
-RUN npm run build && chmod a+x start.sh
-
-EXPOSE 3000
-
-ENTRYPOINT [ "./entrypoint.sh" ]
+CMD ["npm", "run", "build"]

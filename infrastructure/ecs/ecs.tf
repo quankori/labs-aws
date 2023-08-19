@@ -55,24 +55,25 @@ resource "aws_ecs_service" "prj_api_ecs_svc_dev" {
   task_definition        = aws_ecs_task_definition.prj_api_ecs_task_def_dev.arn
   desired_count          = 1
   deployment_controller {
-    type = "ECS"
-    # type = "CODE_DEPLOY" // Just avaliable if ALB or NLB
+    # type = "ECS"
+    type = "CODE_DEPLOY" // Just avaliable if ALB or NLB and open codedeploy
   }
   scheduling_strategy = "REPLICA"
   launch_type         = "FARGATE"
   network_configuration {
-    subnets          = [data.aws_subnet.prj_pubsub01_dev.id]
-    security_groups  = [aws_security_group.prj_api_ecs_sg_dev.id]
+    subnets          = [data.aws_subnet.prj_pubsub01_dev.id] // Reduce cost without use ALB
     assign_public_ip = true
+    # subnets         = [data.aws_subnet.prj_prisub01_dev.id]
+    security_groups = [aws_security_group.prj_api_ecs_sg_dev.id]
   }
-  # load_balancer {
-  #   target_group_arn = aws_lb_target_group.prj_api_ecs_trg_dev.arn
-  #   container_name   = "${var.project_name}-api-ecs-${var.project_env}"
-  #   container_port   = 3000
-  # }
+  load_balancer {
+    target_group_arn = aws_lb_target_group.prj_api_ecs_trg_dev.arn
+    container_name   = "${var.project_name}-api-ecs-${var.project_env}"
+    container_port   = 3000
+  }
   lifecycle {
     create_before_destroy = true
-    ignore_changes        = [task_definition]
+    ignore_changes        = [task_definition, load_balancer]
   }
   tags = {
     Name = "${var.project_name}-ecs_svc-${var.project_env}"

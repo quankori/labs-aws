@@ -36,6 +36,9 @@ resource "aws_codedeploy_deployment_group" "prj_codepdeploy_api_ecs_grp_dev" {
       target_group {
         name = data.terraform_remote_state.terraform_api-ecs_s3_state.outputs.prj_api_ecs_trg_dev_name
       }
+      target_group {
+        name = data.terraform_remote_state.terraform_api-ecs_s3_state.outputs.prj_api_ecs_trg2_dev_name
+      }
     }
   }
 }

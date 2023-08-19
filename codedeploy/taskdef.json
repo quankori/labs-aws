@@ -32,8 +32,8 @@
     }
   ],
   "family": "prj-api-ecs-task-def-dev",
-  "taskRoleArn": "arn:aws:iam::465257090415:role/prj-api-ecs-role-task-dev",
-  "executionRoleArn": "arn:aws:iam::465257090415:role/prj-api-ecs-role-exec-dev",
+  "taskRoleArn": "arn:aws:iam::498907343309:role/prj-api-ecs-role-task-dev",
+  "executionRoleArn": "arn:aws:iam::498907343309:role/prj-api-ecs-role-exec-dev",
   "networkMode": "awsvpc",
   "requiresCompatibilities": ["FARGATE"],
   "cpu": "1024",

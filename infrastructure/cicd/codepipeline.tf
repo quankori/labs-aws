@@ -17,7 +17,7 @@ resource "aws_codepipeline" "prj_codepipeline_dev" {
       output_artifacts = ["Source"]
       configuration = {
         ConnectionArn        = var.arn_codestar
-        BranchName           = "develop"
+        BranchName           = "deploy"
         OutputArtifactFormat = "CODE_ZIP"
         FullRepositoryId     = "quankori/terraform-ecs"
       }

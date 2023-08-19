@@ -3,13 +3,13 @@ resource "aws_codebuild_project" "prj_codebuild_api_dev" {
   service_role   = aws_iam_role.prj_codebuild_role_cd_dev.arn
   build_timeout  = 10
   tags           = var.tags
-  source_version = "master"
+  source_version = "develop"
 
   source {
     type            = "GITHUB"
     location        = "https://github.com/quankori/terraform-ecs.git"
     git_clone_depth = 1
-    buildspec       = "codebuild/buildspec_api.yml"
+    buildspec       = "codebuild/api/buildspec.yml"
   }
 
   environment {
