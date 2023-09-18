@@ -1,1 +1,1 @@
-# Basic Terraform with ECS
+# Labs AWS with Terraform
